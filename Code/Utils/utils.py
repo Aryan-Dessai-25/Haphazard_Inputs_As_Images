@@ -111,6 +111,7 @@ def pie_tensor(values, colors, dpi, thresh=0):
     if not lesser_colors:
         lesser_colors=['white']
     if not main_colors:
+        main_inputs=[1]
         main_colors=['white']
     
     fig = plt.figure(figsize=(s,s))
