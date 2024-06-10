@@ -45,8 +45,8 @@ if __name__ == '__main__':
 
     drop_df, labels, mat_rev_mask=dataloader(data_folder=data_name, drop_rate=drop_rate, seed=seed)
     
-    num_inst=drp_df.shape[0]
-    num_feats.shape[1]
+    num_inst=drop_df.shape[0]
+    num_feats=drop_df.shape[1]
     
     if model_name=='resnet18':
         model=torchvision.models.resnet18(weights='IMAGENET1K_V1')
@@ -126,9 +126,9 @@ if __name__ == '__main__':
             pred_logits+=[outputs]                    #update lists
             preds.append(predicted)
             true.append(label)
-    b_acc=BalancedAccuracy(true,preds)
-    auroc=AUROC(true,pred_logits)
-    auprc=AUPRC(true,pred_logits)
+    b_acc=eval_metrics.BalancedAccuracy(true,preds)
+    auroc=eval_metrics.AUROC(true,pred_logits)
+    auprc=eval_metrics.AUPRC(true,pred_logits)
     print(f'Balanced Accuracy= {b_acc}')
     print(f'AUROC score= {auroc}')
     print(f'AUPRC score= {auprc}')
