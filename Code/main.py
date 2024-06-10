@@ -63,8 +63,8 @@ if __name__ == '__main__':
 
 
     criterion=nn.BCEWithLogitsLoss()
-    optimizer=optim.Adam(model.parameters(),lr=cfg.lr)
-    device='cuda' if torch.cuda.is_available() else 'cpu
+    optimizer=optim.Adam(model.parameters(),lr=lr)
+    device='cuda' if torch.cuda.is_available() else 'cpu'
     model=model.to(device) 
 
     #create lists for storing various data for evaluation and analysis
@@ -91,8 +91,11 @@ if __name__ == '__main__':
         label=torch.tensor([label])
         
         norm_row, min_arr, max_arr=minmaxnorm(row,min_arr,max_arr,epsilon=1e-15)    #normalize and update min, max
-        img=bar_tensor(norm_row,rev,colors,dpi=56)        #obtain bar plot tensor 
-    
+
+        if plot_type=='bar':
+            img=bar_tensor(norm_row,rev,colors,dpi=56)        #obtain bar plot tensor 
+        elif plot_type=='pie':
+            img=pie_tensor(norm_row,colors,dpi=56)
         
         img, label = img.to(device), label.to(device)      #transfer to GPU
         img=torch.reshape(img,(-1,3,224,224))      #add extra dimension corresponding to batch, as required by model
