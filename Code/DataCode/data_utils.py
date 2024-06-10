@@ -12,7 +12,7 @@ def data_load_magic04(data_folder):
     data_path = data_folder_path(data_folder, data_name)
     
     #seed_everything(42)
-    df =  pd.read_csv(data_path).sample(frac=1).reset_index(drop=True
+    df =  pd.read_csv(data_path).sample(frac=1).reset_index(drop=True)
     labels=df['class'].to_numpy()
     labels[labels=='h']=[0]
     labels[labels=='g']=[1]
