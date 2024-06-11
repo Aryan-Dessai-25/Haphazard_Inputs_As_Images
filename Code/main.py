@@ -21,7 +21,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
     parser.add_argument('--seed', default=42, type=int, help='Seeding Number')
-    parser.add_argument('--plottype', default="pie", type=str,
+    parser.add_argument('--plottype', default="bar", type=str,
                         choices = ["pie", "bar"], 
                         help='The type of graphical representation.')
     
