@@ -1,5 +1,6 @@
 #evaluation metrics taken from Haphazard Inputs Review GitHub
 import numpy as np
+import torch
 from sklearn.metrics import auc, roc_auc_score, precision_recall_curve, balanced_accuracy_score
 # Number of Errors
 def NumberOfErrors(y_actual, y_pred): # Two arrays: actual label and prediction
