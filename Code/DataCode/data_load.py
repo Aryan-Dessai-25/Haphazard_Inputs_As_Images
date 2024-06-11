@@ -10,6 +10,6 @@ def dataloader(data_folder='magico4',drop_rate=0.5,seed=42):
     mat_mask, mat_rev_mask=create_mask(num_inst,num_feats,drop_rate=0.5,random_seed=seed)
     X_haphazard=np.multiply(X,mat_mask)
 
-return X_haphazard, Y, mat_rev_mask
+    return X_haphazard, Y, mat_rev_mask
         
         
