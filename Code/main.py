@@ -84,6 +84,8 @@ if __name__ == '__main__':
     min_arr=[np.nan]*num_feats
     min_arr=np.array(min_arr)
     max_arr=np.copy(min_arr)
+    if plot_type=='bar':
+        feat=np.arange(num_feats)
 
     for k in tqdm(range(num_inst)):
 
@@ -95,7 +97,7 @@ if __name__ == '__main__':
         norm_row, min_arr, max_arr=utils.minmaxnorm(row,min_arr,max_arr,epsilon=1e-15)    #normalize and update min, max
 
         if plot_type=='bar':
-            img=utils.bar_tensor(norm_row,rev,colors,dpi=56)        #obtain bar plot tensor 
+            img=utils.bar_tensor(norm_row,rev,colors,feat,dpi=56)        #obtain bar plot tensor 
         elif plot_type=='pie':
             img=utils.pie_tensor(norm_row,colors,dpi=56)
         
