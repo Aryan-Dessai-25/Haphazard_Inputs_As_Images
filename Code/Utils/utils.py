@@ -78,7 +78,7 @@ def create_mask(num_inst,num_feats,drop_rate=0.5,random_seed=42):
 
 #function to produce image tensors corresponding to given normalized data instance
 # takes normalized and dropped values, reverse mask, color scheme and dots per inch resolution
-def bar_tensor(values,rev_val,colors,dpi=20):
+def bar_tensor(values,rev_val,colors,feat,dpi=20):
     s=224/dpi                              #s is the size of image in inches. Models require height and width of image to be 224
     fig, _=plt.subplots(figsize=(s,s))     #fix fig as s*s image. When saving with corresponding dpi we get 224*224 image
     fig=plt.bar(feat,values,color=colors)   #represnt the min-max normed features as bars
