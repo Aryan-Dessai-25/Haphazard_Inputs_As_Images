@@ -9,7 +9,7 @@ import torch.optim as optim
 import torch.nn as nn
 import sys
 import pickle
-from tqdm.notebook import tqdm
+from tqdm import tqdm
 sys.path.append('/code/DataCode/')
 path_to_result = "./Results/"
 
