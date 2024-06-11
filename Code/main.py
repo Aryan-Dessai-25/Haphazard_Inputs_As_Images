@@ -55,10 +55,10 @@ if __name__ == '__main__':
     elif model_name=='resnet34':
         model=torchvision.models.resnet34(weights='IMAGENET1K_V1')
         model.fc=nn.Linear(model.fc.in_features, 1)
-    elif model_name='vit_small_patch16_224':
+    elif model_name=='vit_small_patch16_224':
         model=timm.create_model('vit_small_patch16_224',pretrained=True)
         model.head=nn.Linear(model.head.in_features, 1)
-    elif model_name='vit_base_patch16_224':
+    elif model_name=='vit_base_patch16_224':
         model=timm.create_model('vit_base_patch16_224',pretrained=True)
         model.head=nn.Linear(model.head.in_features, 1)
 
