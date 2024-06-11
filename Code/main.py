@@ -65,7 +65,7 @@ if __name__ == '__main__':
 
     criterion=nn.BCEWithLogitsLoss()
     optimizer=optim.Adam(model.parameters(),lr=lr)
-    device='cpu' if torch.cuda.is_available() else 'cpu'
+    device='cuda' if torch.cuda.is_available() else 'cpu'
     print(device)
     model=model.to(device) 
 
