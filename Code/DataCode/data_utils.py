@@ -7,8 +7,8 @@ from Utils.utils import seed_everything
 def data_folder_path(data_folder, data_name):
     return os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), 'Data', data_folder, data_name)
 
-def data_load_magic04(data_folder,seed):
-    data_name = "magic04.csv"
+def data_load_magico4(data_folder,seed):
+    data_name = "magico4.csv"
     data_path = data_folder_path(data_folder, data_name)
     
     seed_everything(seed)
