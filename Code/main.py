@@ -127,9 +127,9 @@ if __name__ == '__main__':
             outputs=outputs.to('cpu')                 #transfer these to cpu to evaluate using sklearn based metrics
             
             
-            pred_logits+=[outputs]                    #update lists
-            preds.append(predicted)
-            true.append(label)
+            pred_logits+=[outputs.item()]                    #update lists
+            preds.append(predicted.item())
+            true.append(label.item())
     b_acc=eval_metrics.BalancedAccuracy(true,preds)
     auroc=eval_metrics.AUROC(true,pred_logits)
     auprc=eval_metrics.AUPRC(true,pred_logits)
