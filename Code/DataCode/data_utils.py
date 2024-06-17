@@ -17,7 +17,7 @@ def data_load_magico4(data_folder,seed):
     labels[labels=='h']=[0]
     labels[labels=='g']=[1]
     labels=labels.astype(float)          #we extract labels and assign floting point binary labels
-    
+    labels=labels.reshape(-1,1)
     df=df.drop(['class','Unnamed: 0'],axis=1) #drop the labels and indexing from main dataframe
     df=df.to_numpy()
     colors=['sandybrown','blue','black','magenta','olive','red','green','slategray','turquoise','yellow']
