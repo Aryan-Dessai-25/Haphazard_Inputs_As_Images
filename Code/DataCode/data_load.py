@@ -1,6 +1,6 @@
 import numpy as np
 from Utils.utils import minmaxnorm, create_mask, bar_tensor, pie_tensor
-from DataCode.data_utils import data_load_magico4
+from DataCode.data_utils import data_load_magico4, data_load_a8a
 
 def dataloader(data_folder='magico4',drop_rate=0.5,seed=42):
 
