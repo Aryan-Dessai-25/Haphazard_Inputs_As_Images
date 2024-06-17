@@ -92,7 +92,7 @@ if __name__ == '__main__':
         row=drop_df[k]
         rev=mat_rev_mask[k]                         #fetch data to be plotted
         label=labels[k]
-        label=torch.tensor([label])
+        label=torch.tensor(label)
         
         norm_row, min_arr, max_arr=utils.minmaxnorm(row,min_arr,max_arr,epsilon=1e-15)    #normalize and update min, max
 
