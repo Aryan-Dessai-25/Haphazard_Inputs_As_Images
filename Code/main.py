@@ -78,8 +78,11 @@ if __name__ == '__main__':
     true=[]
     acc_history=[]
     f1_history=[]
-    
-    colors=['sandybrown','blue','black','magenta','olive','red','green','slategray','turquoise','yellow']
+
+    if data_name=='magico4':
+        colors=['sandybrown','blue','black','magenta','olive','red','green','slategray','turquoise','yellow']
+    elif data_name=='a8a':
+        colors=[]
     feat=np.arange(num_feats)
     min_arr=[np.nan]*num_feats
     min_arr=np.array(min_arr)
