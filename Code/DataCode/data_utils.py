@@ -23,3 +23,24 @@ def data_load_magico4(data_folder,seed):
     
     return df, labels
 
+def data_load_a8a(data_folder):
+    data_name = "a8a.txt"
+    n_feat = 123
+    number_of_instances = 32561
+    data_path = data_folder_path(data_folder, data_name)
+    data_initial =  pd.read_csv(data_path, sep = " ", header = None, engine = 'python')
+    data = pd.DataFrame(0, index=range(number_of_instances), columns = list(range(1, n_feat+1)))
+    # 16th column contains only NaN value
+    data_initial = data_initial.iloc[:, :15]
+    for j in range(data_initial.shape[0]):
+            l = [int(i.split(":")[0])-1 for i in list(data_initial.iloc[j, 1:]) if not pd.isnull(i)]
+            data.iloc[j, l] = 1
+    label = np.array(data_initial[0] == -1)*1
+    data.insert(0, column='class', value=label)
+    data = data.sample(frac = 1)
+
+    Y = np.array(data.iloc[:,:1])
+    X = np.array(data.iloc[:,1:])
+
+    return X, Y
+
