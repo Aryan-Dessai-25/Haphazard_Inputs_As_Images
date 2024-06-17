@@ -44,7 +44,7 @@ if __name__ == '__main__':
     lr=args.lr
     utils.seed_everything(seed)
 
-    drop_df, labels, mat_rev_mask=dataloader(data_folder=data_name, drop_rate=drop_rate, seed=seed)
+    drop_df, labels, mat_rev_mask, colors=dataloader(data_folder=data_name, drop_rate=drop_rate, seed=seed)
     
     num_inst=drop_df.shape[0]
     num_feats=drop_df.shape[1]
@@ -79,10 +79,7 @@ if __name__ == '__main__':
     acc_history=[]
     f1_history=[]
 
-    if data_name=='magico4':
-        colors=['sandybrown','blue','black','magenta','olive','red','green','slategray','turquoise','yellow']
-    elif data_name=='a8a':
-        colors=[]
+    
     feat=np.arange(num_feats)
     min_arr=[np.nan]*num_feats
     min_arr=np.array(min_arr)
