@@ -6,7 +6,7 @@ def dataloader(data_folder='magico4',drop_rate=0.5,seed=42):
 
     if data_folder=='magico4':
         X,Y,colors=data_load_magico4(data_folder,seed)
-    elif data-folder=='a8a':
+    elif data_folder=='a8a':
         X,Y,colors=data_load_a8a(data_folder)
     num_inst=X.shape[0]
     num_feats=X.shape[1]
