@@ -28,7 +28,7 @@ if __name__ == '__main__':
     
     # Data Variables
     parser.add_argument('--dataname', default = "magico4", type = str,
-                        choices = ["imdb", "higgs", "susy", "a8a", "magic04"],
+                        choices = ["imdb", "higgs", "SUSY", "a8a", "magic04"],
                         help='The name of the data')
     
     parser.add_argument('--droprate', default = 0.5, type = float, help = "fraction of data unavailable for the model")

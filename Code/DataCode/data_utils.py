@@ -1,5 +1,5 @@
-import numpy as np
-import pandas as pd
+import numpy as np # type: ignore
+import pandas as pd # type: ignore
 import os
 import pickle
 from Utils.utils import seed_everything
@@ -167,3 +167,16 @@ def data_load_a8a(data_folder):
     '#ccddf1']
     return X, Y, colors
 
+def data_load_susy(data_folder):
+    data_name = "SUSY_1M.csv.gz"
+    data_path = data_folder_path(data_folder, data_name)
+    data_initial =  pd.read_csv(data_path, compression='gzip')
+    label = np.array(data_initial["0"] == 1.0)*1
+    data_initial = data_initial.iloc[:,1:]
+    data_initial.insert(0, column="class", value=label)
+    data = data_initial.sample(frac = 1)
+
+    Y = np.array(data.iloc[:,:1])
+    X = np.array(data.iloc[:,1:])
+    colors=['sandybrown','blue','black','magenta','red','green','slategray','yellow']
+    return X, Y, colors
