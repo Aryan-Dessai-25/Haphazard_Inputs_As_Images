@@ -68,6 +68,7 @@ if __name__ == '__main__':
     optimizer=optim.Adam(model.parameters(),lr=lr)
     device='cuda' if torch.cuda.is_available() else 'cpu'
     print(device)
+    print('timing')
     model=model.to(device) 
 
     #create lists for storing various data for evaluation and analysis
