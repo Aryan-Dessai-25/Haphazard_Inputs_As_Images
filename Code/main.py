@@ -1,7 +1,7 @@
 import os
 import argparse
 import random
-import datetime
+from datetime import datetime
 import numpy as np # type: ignore
 import torch # type: ignore
 import torchvision # type: ignore
