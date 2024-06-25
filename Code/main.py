@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--seed', default=42, type=int, help='Seeding Number')
     parser.add_argument('--plottype', default="bar", type=str,
-                        choices = ["pie", "bar"], 
+                        choices = ["pie", "bar", "barcont"], 
                         help='The type of graphical representation.')
     
     # Data Variables
@@ -86,8 +86,7 @@ if __name__ == '__main__':
     min_arr=[np.nan]*num_feats
     min_arr=np.array(min_arr)
     max_arr=np.copy(min_arr)
-    if plot_type=='bar':
-        feat=np.arange(num_feats)
+    
 
     minmax_time=0
     plot_time=0
@@ -113,6 +112,8 @@ if __name__ == '__main__':
             img=utils.bar_tensor(norm_row,rev,colors,feat,dpi=56)        #obtain bar plot tensor 
         elif plot_type=='pie':
             img=utils.pie_tensor(norm_row,colors,dpi=56)
+        elif plot_type=='barcont':
+            img=utils.bar_cont_tensor(norm_row,colors,feat,dpi=56)
         end2=datetime.now()
         diff2 = (end2 - start2).total_seconds()
         plot_time+=diff2

@@ -1,13 +1,13 @@
 import random
 import os
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-import torch
-from torchvision import transforms
+import numpy as np # type: ignore
+import pandas as pd # type: ignore
+import matplotlib.pyplot as plt # type: ignore
+import torch # type: ignore
+from torchvision import transforms # type: ignore
 import io
 import random
-from PIL import Image
+from PIL import Image # type: ignore
 
 #--------------Seed--------------#
 def seed_everything(seed: int):
@@ -127,6 +127,33 @@ def pie_tensor(values, colors, dpi, thresh=0):
     one = np.ones_like(lesser_colors)
     ax2.pie(one, colors=lesser_colors, radius = .6)
     
+    fig=io.BytesIO()                        #creates byte buffer for converting plt bar object to jpg
+    
+    figsav=plt.savefig(fig,dpi=dpi, format='jpg') #saving to jpg
+    
+    image=trans(Image.open(fig))         #opening jpg using PIL and transforming to PyTorch tensor  
+    plt.close()
+    return image
+
+def bar_cont_tensor(values,colors,feat,dpi=56):
+    s=224/dpi
+    main_feat=[]
+    main_values=[]
+    main_colors=[]
+    for i, val in enumerate(values):
+        if not pd.isnull(val):
+            main_feat+=[i]
+            main_values+=[val]
+            main_colors+=[colors[i]]
+    
+    if not main_feat:
+        main_feat=['none']
+        main_values=[0]
+        main_colors=['white']
+    
+    fig, _=plt.subplots(figsize=(s,s))     #fix fig as s*s image. When saving with corresponding dpi we get 224*224 image
+    fig=plt.bar(main_feat,main_values,color=main_colors)   #represnt the min-max normed features as bars
+    fig=plt.ylim((0,1))                     #set y axis limits so that all graphs are scaled uniformly
     fig=io.BytesIO()                        #creates byte buffer for converting plt bar object to jpg
     
     figsav=plt.savefig(fig,dpi=dpi, format='jpg') #saving to jpg
