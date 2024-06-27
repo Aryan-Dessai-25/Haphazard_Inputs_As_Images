@@ -91,7 +91,6 @@ if __name__ == '__main__':
     minmax_time=0
     plot_time=0
     model_time=0
-    loss_backprop_time=0
     predict_time=0
 
     for k in tqdm(range(num_inst)):
@@ -121,19 +120,16 @@ if __name__ == '__main__':
 
         img, label = img.to(device), label.to(device)      #transfer to GPU
         img=torch.reshape(img,(-1,3,224,224))      #add extra dimension corresponding to batch, as required by model
-        
-        optimizer.zero_grad()
         with torch.no_grad():
             start3=datetime.now()
+        optimizer.zero_grad()
+        
         outputs=model(img)
-        with torch.no_grad():
-            end3=datetime.now()
-            diff3 = (end3 - start3).total_seconds()
-            model_time+=diff3
+        
+            
         outputs=torch.reshape(outputs,(-1,))
     
-        with torch.no_grad():
-            start4=datetime.now() 
+        
         loss=criterion(outputs,label.float())         #compute loss
     
         loss.backward()                               
@@ -144,12 +140,12 @@ if __name__ == '__main__':
     
         with torch.no_grad():
 
-            end4=datetime.now()
-            diff4 = (end4 - start4).total_seconds()
-            loss_backprop_time+=diff4
+            end3=datetime.now()
+            diff3 = (end3 - start3).total_seconds()
+            model_time+=diff3
 
 
-            start5=datetime.now()
+            start4=datetime.now()
 
             predicted=torch.sigmoid(outputs)          # since we use BCEWithLogitsLoss, sigmoid is required for obtaining probability
             predicted=torch.round(predicted)          # get binary prediction
@@ -162,9 +158,9 @@ if __name__ == '__main__':
             pred_logits+=[outputs.item()]                    #update lists
             preds.append(predicted.item())
             true.append(label.item())
-            end5=datetime.now()
-            diff5 = (end5 - start5).total_seconds()
-            predict_time+=diff5
+            end4=datetime.now()
+            diff4 = (end4 - start4).total_seconds()
+            predict_time+=diff4
     b_acc=eval_metrics.BalancedAccuracy(true,preds)
     auroc=eval_metrics.AUROC(true,pred_logits)
     auprc=eval_metrics.AUPRC(true,pred_logits)
@@ -173,6 +169,5 @@ if __name__ == '__main__':
     print(f'AUPRC score= {auprc}')
     print('norm=',minmax_time)
     print('plot=', plot_time)
-    print('model=', model_time)
-    print('bprop=', loss_backprop_time)
+    print('model+backprop=', model_time)
     print('predict=', predict_time)
