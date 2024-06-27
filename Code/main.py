@@ -44,7 +44,7 @@ if __name__ == '__main__':
     model_name=args.modelname
     lr=args.lr
     utils.seed_everything(seed)
-
+    
     drop_df, labels, mat_rev_mask, colors=dataloader(data_folder=data_name, drop_rate=drop_rate, seed=seed)
     
     num_inst=drop_df.shape[0]
@@ -164,9 +164,17 @@ if __name__ == '__main__':
     b_acc=eval_metrics.BalancedAccuracy(true,preds)
     auroc=eval_metrics.AUROC(true,pred_logits)
     auprc=eval_metrics.AUPRC(true,pred_logits)
+    print('seed= ',seed)
+    print('plot= ',plot_type)
+    print('data= ',data_name)
+    print('droprate= ',drop_rate)
+    print('model= ', model_name)
+    print('lr= ',lr)
+    print()
     print(f'Balanced Accuracy= {b_acc}')
     print(f'AUROC score= {auroc}')
     print(f'AUPRC score= {auprc}')
+    print()
     print('norm=',minmax_time)
     print('plot=', plot_time)
     print('model+backprop=', model_time)
