@@ -161,5 +161,6 @@ def bar_cont_tensor(values,colors,feat,dpi=56):
     figsav=plt.savefig(fig,dpi=dpi, format='jpg') #saving to jpg
     
     image=trans(Image.open(fig))         #opening jpg using PIL and transforming to PyTorch tensor  
+    image=transforms.functional.rotate(image,angle=270)
     plt.close()
     return image
