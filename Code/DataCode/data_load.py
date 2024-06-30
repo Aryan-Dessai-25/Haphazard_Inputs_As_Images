@@ -5,7 +5,7 @@ from DataCode.data_utils import data_load_magico4, data_load_a8a, data_load_susy
 def dataloader(data_folder='magico4',drop_rate=0.5,seed=42):
 
     if data_folder=='magico4':
-        X,Y,colors=data_load_magico4(data_folder,seed)
+        X,Y,colors,rgbcol=data_load_magico4(data_folder,seed)
     elif data_folder=='a8a':
         X,Y,colors=data_load_a8a(data_folder)
     elif data_folder=='SUSY':
@@ -15,6 +15,6 @@ def dataloader(data_folder='magico4',drop_rate=0.5,seed=42):
     mat_mask, mat_rev_mask=create_mask(num_inst,num_feats,drop_rate,random_seed=seed)
     X_haphazard=np.multiply(X,mat_mask)
 
-    return X_haphazard, Y, mat_rev_mask, colors
+    return X_haphazard, Y, mat_rev_mask, colors, rgbcol
         
         

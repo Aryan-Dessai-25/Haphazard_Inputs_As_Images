@@ -81,7 +81,7 @@ def create_mask(num_inst,num_feats,drop_rate=0.5,random_seed=42):
 
 #function to produce image tensors corresponding to given normalized data instance
 # takes normalized and dropped values, reverse mask, color scheme and dots per inch resolution
-def bar_tensor(values,rev_val,colors,feat,dpi=56):
+def bar_tensor(values,rev_val,colors,feat,vert=True,dpi=56):
     s=224/dpi                              #s is the size of image in inches. Models require height and width of image to be 224
     fig, _=plt.subplots(figsize=(s,s))     #fix fig as s*s image. When saving with corresponding dpi we get 224*224 image
     fig=plt.bar(feat,values,color=colors)   #represnt the min-max normed features as bars
@@ -92,6 +92,8 @@ def bar_tensor(values,rev_val,colors,feat,dpi=56):
     figsav=plt.savefig(fig,dpi=dpi, format='jpg') #saving to jpg
     
     image=trans(Image.open(fig))         #opening jpg using PIL and transforming to PyTorch tensor  
+    if not vert:
+        image=transforms.functional.rotate(image,angle=270)
     plt.close()
     return image
 
@@ -135,9 +137,10 @@ def pie_tensor(values, colors, dpi, thresh=0):
     
     image=trans(Image.open(fig))         #opening jpg using PIL and transforming to PyTorch tensor  
     plt.close()
+    
     return image
 
-def bar_cont_tensor(values,colors,feat,dpi=56):
+def bar_cont_tensor(values,colors,feat,vert=True,dpi=56):
     s=224/dpi
     main_feat=[]
     main_values=[]
@@ -161,6 +164,37 @@ def bar_cont_tensor(values,colors,feat,dpi=56):
     figsav=plt.savefig(fig,dpi=dpi, format='jpg') #saving to jpg
     
     image=trans(Image.open(fig))         #opening jpg using PIL and transforming to PyTorch tensor  
-    image=transforms.functional.rotate(image,angle=270)
+    if not vert:
+        image=transforms.functional.rotate(image,angle=270)
     plt.close()
     return image
+
+def bar_cont_tensor_fast(values,rgbcol,feat,vert=True):
+    main_feat=[]
+    main_values=[]
+    main_colors=[]
+    for i, val in enumerate(values):
+        if not pd.isnull(val):
+            main_feat+=[i]
+            main_values+=[val]
+            main_colors+=[rgbcol[i]]
+    num_feat=len(main_feat)
+    width=int(224/num_feat)
+    
+    main_values=224*np.array(main_values)
+    heights=np.array(main_values)
+    heights=heights.round(0).astype(int)
+    
+    imgtensor=torch.ones([3,224,224])*255
+    start=[width*i for i in range(num_feat)]
+    
+    for i in range(num_feat):
+        r,g,b=main_colors[i]
+        imgtensor[0,start[i]:start[i]+width,:heights[i]]=r
+        imgtensor[1,start[i]:start[i]+width,:heights[i]]=g
+        imgtensor[2,start[i]:start[i]+width,:heights[i]]=b
+        
+    imgtensor=imgtensor/255
+    if vert:
+        imgtensor=transforms.functional.rotate(imgtensor,angle=90)
+    return imgtensor

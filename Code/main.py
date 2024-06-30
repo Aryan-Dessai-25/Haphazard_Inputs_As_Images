@@ -23,7 +23,7 @@ if __name__ == '__main__':
 
     parser.add_argument('--seed', default=42, type=int, help='Seeding Number')
     parser.add_argument('--plottype', default="bar", type=str,
-                        choices = ["pie", "bar", "barcont"], 
+                        choices = ["pie", "bar", "barcont","barfast"], 
                         help='The type of graphical representation.')
     
     # Data Variables
@@ -36,6 +36,7 @@ if __name__ == '__main__':
                         choices = ["resnet18", "resnet34", "vit_small_patch16_224", "vit_base_patch16_224"],
                         help = "The name of the model used")
     parser.add_argument('--lr', default=1e-5, type=float, help='Learning rate')
+    parser.add_argument('--vert',default=True, type=bool, help='whether plot orientation is vertical(True) or horizontal(False)')
     args = parser.parse_args()
     seed = args.seed
     plot_type = args.plottype
@@ -43,9 +44,10 @@ if __name__ == '__main__':
     drop_rate = args.droprate
     model_name=args.modelname
     lr=args.lr
+    vert=args.vert
     utils.seed_everything(seed)
     
-    drop_df, labels, mat_rev_mask, colors=dataloader(data_folder=data_name, drop_rate=drop_rate, seed=seed)
+    drop_df, labels, mat_rev_mask, colors,rgbcol=dataloader(data_folder=data_name, drop_rate=drop_rate, seed=seed)
     
     num_inst=drop_df.shape[0]
     num_feats=drop_df.shape[1]
@@ -108,11 +110,13 @@ if __name__ == '__main__':
 
         start2=datetime.now()
         if plot_type=='bar':
-            img=utils.bar_tensor(norm_row,rev,colors,feat,dpi=56)        #obtain bar plot tensor 
+            img=utils.bar_tensor(norm_row,rev,colors,feat,vert,dpi=56)        #obtain bar plot tensor 
         elif plot_type=='pie':
             img=utils.pie_tensor(norm_row,colors,dpi=56)
         elif plot_type=='barcont':
-            img=utils.bar_cont_tensor(norm_row,colors,feat,dpi=56)
+            img=utils.bar_cont_tensor(norm_row,colors,feat,vert,dpi=56)
+        elif plot_type=='barfast':
+            img=utils.bar_cont_tensor_fast(norm_row, rgbcol,feat,vert)
         end2=datetime.now()
         diff2 = (end2 - start2).total_seconds()
         plot_time+=diff2

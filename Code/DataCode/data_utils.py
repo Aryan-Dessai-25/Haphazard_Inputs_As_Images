@@ -21,7 +21,17 @@ def data_load_magico4(data_folder,seed):
     df=df.drop(['class','Unnamed: 0'],axis=1) #drop the labels and indexing from main dataframe
     df=df.to_numpy()
     colors=['sandybrown','blue','black','magenta','olive','red','green','slategray','turquoise','yellow']
-    return df, labels, colors
+    rgbcol=[(244,164,96),
+        (0,0,255),
+        (0,0,0),
+        (255,0,255),
+        (128,128,0),
+        (255,0,0),
+        (0,0,255),
+        (112,128,144),
+        (64,224,208),
+        (255,255,0)]
+    return df, labels, colors, rgbcol
 
 def data_load_a8a(data_folder):
     data_name = "a8a.txt"
