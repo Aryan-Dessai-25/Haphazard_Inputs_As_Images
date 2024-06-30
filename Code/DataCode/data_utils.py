@@ -189,4 +189,12 @@ def data_load_susy(data_folder):
     Y = np.array(data.iloc[:,:1])
     X = np.array(data.iloc[:,1:])
     colors=['sandybrown','blue','black','magenta','red','green','slategray','yellow']
-    return X, Y, colors
+    rgbcol=[(244,164,96),
+        (0,0,255),
+        (0,0,0),
+        (255,0,255),
+        (255,0,0),
+        (0,0,255),
+        (112,128,144),
+        (255,255,0)]
+    return X, Y, colors, rgbcol

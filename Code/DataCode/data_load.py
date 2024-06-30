@@ -9,7 +9,7 @@ def dataloader(data_folder='magico4',drop_rate=0.5,seed=42):
     elif data_folder=='a8a':
         X,Y,colors=data_load_a8a(data_folder)
     elif data_folder=='SUSY':
-        X,Y,colors=data_load_susy(data_folder)
+        X,Y,colors,rgbcol=data_load_susy(data_folder)
     num_inst=X.shape[0]
     num_feats=X.shape[1]
     mat_mask, mat_rev_mask=create_mask(num_inst,num_feats,drop_rate,random_seed=seed)
